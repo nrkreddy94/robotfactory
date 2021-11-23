@@ -1,0 +1,267 @@
+openapi: 3.0.0
+info:
+  title: Robot Factory API
+  version: 1.0.0
+  termsOfService: robotfactory
+  contact:
+    name: JagadheeswarReddy
+    email: jagadheeswar.punnati@gmail.com    
+  license:
+    name: SELF    
+  description: >
+    At Robot Factory Inc. we sell configurable Robots, You just let us know configurations and we will manufacture it for you.
+    
+    ### Media Type
+    
+    Where applicable this API uses the JSON media-type. Requests with a message-body are using plain JSON to set or update resource states.
+    
+    
+    The API accepts JSON in request bodies and requires that the `Content-type: application/json` header be specified for all such requests. The API will always respond with a JSON object, unless stated otherwise. Depending on context, resources may be returned as single objects or as arrays of objects, nested within the response object.
+    
+    
+    `Content-type: application/json` and `Accept: application/json` headers **should** be set on all requests if not stated otherwise.
+    
+    
+    ### Status codes
+    
+    This API uses HTTP status codes to communicate with the API consumer.
+    
+    + `200 OK` - Response to a successful GET, PUT, PATCH or DELETE.
+    
+    + `201 Created` - Response to a POST that results in a creation.
+    
+    + `202 Accepted` - The request has been accepted for processing, but the processing has not been completed.
+    
+    + `204 No Content` - Response to a successful request that won't be returning a body (like a DELETE request).
+    
+    + `302 Found` - Tells the client to look at (browse to) another url.
+    
+    + `304 Not Modified` - Response has not been modified since the previous transmission.
+    
+    + `400 Bad Request` - Malformed request; request body validation errors.
+    
+    + `401 Unauthorized` - When no or invalid authentication details are provided.
+    
+    + `402 Payment required` - When payment check has failed
+    
+    + `403 Forbidden` - When authentication succeeded but authenticated user doesn't have access to the resource.
+    
+    + `404 Not Found` - When a non-existent resource is requested.
+    
+    + `405 Method Not Allowed` - Method not allowed.
+    
+    + `409 Conflict` - When the request could not be completed due to a conflict with the current state of the resource.
+    
+    + `422 Unprocessable Entity` - The request was well-formed but was unable to be followed due to semantic errors.
+    
+    + `500 Server Error` - Something went wrong on the API end.
+    
+    + `501 Not Implemented` - The server either does not recognize the request method, or it lacks the ability to fulfill the request.  
+    
+tags:
+  - name: 'RobotoFactoryController'  
+  
+servers:
+# Added by API Auto Mocking Plugin
+- url: https://gist-management.site
+  description: PROD server url    
+- url: http://localhost:8081
+  description: DEV server url  
+
+
+paths:
+  /orders:
+    post:
+      tags:
+      - RobotoFactoryController
+      summary: Manufacture robot with given configurations
+      requestBody:
+        description: Robot configurations
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+          
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+                
+  /stocks:
+    get:
+      tags:
+      - RobotoFactoryController
+      summary: Get all availbale stock details
+      operationId: stocks
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Component' 
+  /face/component:
+    get:
+      tags:
+      - RobotoFactoryController
+      summary: Get all availbale Face Components 
+      operationId: faceComponent
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Component'
+  /arms/component:
+    get:
+      tags:
+      - RobotoFactoryController
+      summary: Get all availbale Arms Components 
+      operationId: armsComponent
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Component'
+  /mobility/component:
+    get:
+      tags:
+      - RobotoFactoryController
+      summary: Get all availbale Mobility Components 
+      operationId: mobilityComponent
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Component'
+  /material/component:
+    get:
+      tags:
+      - RobotoFactoryController
+      summary: Get all availbale Material Components 
+      operationId: materialComponent
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Component'                    
+                    
+  /stocks/update:
+    post:
+      tags:
+      - RobotoFactoryController
+      summary: Add or Update component in stocks
+      operationId: stockUpdate
+      requestBody:
+        description: Robot component details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Component'
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Component'                     
+  /component:
+    get:
+      tags:
+      - RobotoFactoryController
+      summary: Get component details with code
+      operationId: component
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Component'  
+
+  /updateComponentAvailability:
+    post:
+      tags:
+      - RobotoFactoryController
+      summary: Update component availability details with code
+      operationId: updateComponentAvailability
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+          "200":
+            description: OK
+            content:
+              '*/*':
+                schema:
+                  $ref: '#/components/schemas/Component'             
+
+components:
+  schemas:
+    Component:
+       type: object
+       properties:
+        code:
+          type: string
+        price:
+          type: number
+          format: double          
+        available:
+          type: integer
+          format: int32
+        name:
+          type: string
+    OrderResponse:
+       type: object
+       properties:
+        orderid:
+          type: string
+        total:
+          type: number
+          format: double 
+          
+    OrderRequest:
+       type: object
+       properties:
+        components:
+          type: array
+          items:
+            type: string        
+             
+          
+          
+          
+          
