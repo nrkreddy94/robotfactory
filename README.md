@@ -52,5 +52,9 @@ Below steps are taken care during development.
 6) Pushed the code to GitHub and deployed on Heroku cloud server,  anyone can access our spring boot Robot Factory API.
 
 Please use the below URLs to access Source Code and deployed application.
-Heroku : [https://robot-factory-de.herokuapp.com/]
-GitHub : [https://github.com/nrkreddy94/robotfactory]
+
+Heroku : https://robot-factory-de.herokuapp.com/
+
+GitHub : https://github.com/nrkreddy94/robotfactory
+
+
