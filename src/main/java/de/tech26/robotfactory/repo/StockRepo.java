@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -34,14 +35,15 @@ public class StockRepo {
 	@Autowired
 	private ComponentCategoryUtil componentCategoryUtil;
 
-	@Value("${stocks.file.path}")
-	private String stocksPath;
+	@Value("${stocks.file.name}")
+	private String stocksFileName;
 
 	private static Map<Character, Component> stocks = new HashMap<>();
 
 	@PostConstruct
-	private void init() {
-		stocks = this.readInputFile(stocksPath);
+	private void init() throws IOException {
+		
+		stocks = this.readInputFile(stocksFileName);
 		categorizeComponents(stocks);
 	}
 
@@ -73,11 +75,11 @@ public class StockRepo {
 	 * @param filePath input file path
 	 * @return Map<Character, Component> return components
 	 */
-	public Map<Character, Component> readInputFile(String filePath) {
+	public Map<Character, Component> readInputFile(String file) {
 		var components = new HashMap<Character, Component>();
 		// read file into stream of lines
-		try (Stream<String> lines = Files.lines(Paths.get(ResourceUtils.getFile("classpath:" + filePath).getPath()))) {
-
+		//try (Stream<String> lines = Files.lines(Paths.get(ResourceUtils.getFile("classpath:" + file).getPath()))) { // for local 
+		try (Stream<String> lines = Files.lines(Paths.get(new ClassPathResource(file).getURL().getPath()))) { // for heroku
 			lines.forEach(line -> {
 				// Split the line with multiple space using regex \s{2,}+
 				String columns[] = line.split("\\s{2,}");
