@@ -1,13 +1,13 @@
 package de.tech26.robotfactory.repo;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 
@@ -15,9 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ResourceUtils;
 
 import de.tech26.robotfactory.model.Component;
 import de.tech26.robotfactory.utils.ComponentCategoryUtil;
@@ -35,15 +33,15 @@ public class StockRepo {
 	@Autowired
 	private ComponentCategoryUtil componentCategoryUtil;
 
-	@Value("${stocks.file.name}")
-	private String stocksFileName;
+	@Value("${stocks.file}")
+	private String stocksFile;
 
 	private static Map<Character, Component> stocks = new HashMap<>();
 
 	@PostConstruct
 	private void init() throws IOException {
 		
-		stocks = this.readInputFile(stocksFileName);
+		stocks = this.readInputFile(stocksFile);
 		categorizeComponents(stocks);
 	}
 
@@ -77,10 +75,10 @@ public class StockRepo {
 	 */
 	public Map<Character, Component> readInputFile(String file) {
 		var components = new HashMap<Character, Component>();
-		// read file into stream of lines
-		//try (Stream<String> lines = Files.lines(Paths.get(ResourceUtils.getFile("classpath:" + file).getPath()))) { // for local 
-		try (Stream<String> lines = Files.lines(Paths.get(new ClassPathResource(file).getURL().getPath()))) { // for heroku
-			lines.forEach(line -> {
+		// read file into stream of lines			
+		try (InputStream inputStream = getClass().getResourceAsStream(file);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+			reader.lines().forEach(line -> {
 				// Split the line with multiple space using regex \s{2,}+
 				String columns[] = line.split("\\s{2,}");
 				try {
