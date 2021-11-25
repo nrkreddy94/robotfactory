@@ -16,6 +16,7 @@
 	<description>Build Robot from RobotFactory with configurations</description>
 	<properties>
 		<java.version>11</java.version>
+		<openapi.version>1.5.12</openapi.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,11 +29,22 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.5.12</version>
+			<version>${openapi.version}</version>
 		</dependency>
 	</dependencies>
 

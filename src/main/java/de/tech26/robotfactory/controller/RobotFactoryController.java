@@ -27,8 +27,8 @@ import de.tech26.robotfactory.service.StockService;
  *
  */
 @RestController
-public class RobotoFactoryController {
-	private static final Log logger = LogFactory.getLog(RobotoFactoryController.class);
+public class RobotFactoryController {
+	private static final Log logger = LogFactory.getLog(RobotFactoryController.class);
 
 	@Autowired
 	StockService stockService;

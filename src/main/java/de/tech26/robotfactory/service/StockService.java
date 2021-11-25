@@ -130,7 +130,7 @@ public class StockService {
 	public Component updateComponentAvailability(Character code) {
 
 		Component part = stockRepo.getComponentByCode(code);
-		if (part.getAvailable() > 0) {
+		if (part!=null && part.getAvailable() > 0) {
 			part.setAvailable(part.getAvailable() - 1);
 			stockRepo.updateStocks(code, part);
 			part = stockRepo.getComponentByCode(code);

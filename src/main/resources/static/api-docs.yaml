@@ -59,7 +59,7 @@ info:
     + `501 Not Implemented` - The server either does not recognize the request method, or it lacks the ability to fulfill the request.  
     
 tags:
-  - name: 'RobotoFactoryController'  
+  - name: 'RobotFactoryController'  
   
 servers:
 # Added by API Auto Mocking Plugin
@@ -73,7 +73,7 @@ paths:
   /orders:
     post:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Manufacture robot with given configurations
       requestBody:
         description: Robot configurations
@@ -94,7 +94,7 @@ paths:
   /stocks:
     get:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Get all availbale stock details
       operationId: stocks
       responses:
@@ -109,7 +109,7 @@ paths:
   /face/component:
     get:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Get all availbale Face Components 
       operationId: faceComponent
       responses:
@@ -124,7 +124,7 @@ paths:
   /arms/component:
     get:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Get all availbale Arms Components 
       operationId: armsComponent
       responses:
@@ -139,7 +139,7 @@ paths:
   /mobility/component:
     get:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Get all availbale Mobility Components 
       operationId: mobilityComponent
       responses:
@@ -154,7 +154,7 @@ paths:
   /material/component:
     get:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Get all availbale Material Components 
       operationId: materialComponent
       responses:
@@ -170,7 +170,7 @@ paths:
   /stocks/update:
     post:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Add or Update component in stocks
       operationId: stockUpdate
       requestBody:
@@ -192,7 +192,7 @@ paths:
   /component:
     get:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Get component details with code
       operationId: component
       parameters:
@@ -212,7 +212,7 @@ paths:
   /updateComponentAvailability:
     post:
       tags:
-      - RobotoFactoryController
+      - RobotFactoryController
       summary: Update component availability details with code
       operationId: updateComponentAvailability
       parameters:
