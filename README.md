@@ -41,3 +41,16 @@ Given a list of part codes, implement a robot creation order:
 
 *Output*
 `201 {"order_id": "some-id", "total": 160.11 }`
+
+## Solution
+Below steps are taken care during development.
+1) Read components from stocks.txt file which is located in resources folder.
+2) Implemented StockRepo for CRUD operations and exposed these to StockServcie and RobotFactoryController.
+3) Implemented all required API endpoints, can be updated or add new components to stocks dynamically.
+4) Created Swagger OpenAPI Specification for these APIs with clear documentation. 
+5) Junit test cases are written for all APIs.
+6) Pushed the code to GitHub and deployed on Heroku cloud server,  anyone can access our spring boot Robot Factory API.
+
+Please use the below URLs to access Source Code and deployed application.
+Heroku : [https://robot-factory-de.herokuapp.com/]
+GitHub : [https://github.com/nrkreddy94/robotfactory]
